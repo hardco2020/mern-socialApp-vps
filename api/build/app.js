@@ -8,6 +8,10 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
+<<<<<<< HEAD
+=======
+const dotenv_1 = __importDefault(require("dotenv"));
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
 const todo_routing_1 = require("./main/api/todo/todo.routing");
 const local_auth_routing_1 = require("./main/auth/local/local-auth.routing");
 const app_routing_1 = require("./app.routing");
@@ -28,6 +32,10 @@ class App {
         this.registerRoute();
     }
     bootstrap() {
+<<<<<<< HEAD
+=======
+        console.log("cool");
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
         const httpServer = http_1.createServer(this.app);
         this.setSocket(httpServer);
         httpServer.listen(process.env.PORT, () => {
@@ -59,17 +67,27 @@ class App {
             users = users.filter(user => user.socketId !== socketId);
         };
         const getUser = (userId) => {
+<<<<<<< HEAD
             console.log(users);
             return users.find(user => user.userId === userId);
         };
         io.on("connection", (socket) => {
             console.log(users);
+=======
+            return users.find(user => user.userId === userId);
+        };
+        io.on("connection", (socket) => {
+            console.log("a user connected");
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
             socket.on("addUser", userId => {
                 addUser(userId, socket.id);
                 io.emit("getUsers", users);
             });
             socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+<<<<<<< HEAD
                 console.log(senderId, text, receiverId);
+=======
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
                 const user = getUser(receiverId);
                 io.to(user.socketId).emit("getMessage", {
                     senderId,
@@ -87,7 +105,11 @@ class App {
         this.app.use(cors_1.default());
     }
     setEnvironment() {
+<<<<<<< HEAD
         require('dotenv').config();
+=======
+        dotenv_1.default.config({ path: path_1.default.resolve(__dirname, `./environments/${process.env.NODE_ENV}.env`) });
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
     }
     setException(handler) {
         this.app.use(handler);

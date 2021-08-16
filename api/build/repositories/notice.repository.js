@@ -20,8 +20,16 @@ class NoticeRepository {
         return notices;
     }
     async updateNotice(noticeId, readId) {
+<<<<<<< HEAD
         const notice = await notice_model_1.NoticeModel.findById(noticeId);
         const other = await notice_model_1.NoticeModel.updateMany({ senderId: notice === null || notice === void 0 ? void 0 : notice.senderId, receiverId: notice === null || notice === void 0 ? void 0 : notice.receiverId, object: notice === null || notice === void 0 ? void 0 : notice.object }, { $addToSet: { read: readId } });
+=======
+        const notice = await notice_model_1.NoticeModel.findByIdAndUpdate(noticeId, { $addToSet: { read: readId } }, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        });
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
         return notice;
     }
     async sendNoticePost(senderId, object, senderPic, senderUsername, receiverId, postId) {

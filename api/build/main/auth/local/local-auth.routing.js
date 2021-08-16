@@ -17,7 +17,10 @@ class LocalAuthRoute extends route_base_1.RouteBase {
         super.initial();
     }
     registerRoute() {
+<<<<<<< HEAD
         this.router.get('/test', (req, res, next) => res.send('user test.'));
+=======
+>>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
         this.router.post('/signup', express_1.default.json(), this.usePipe(local_auth_pipe_1.LocalAuthSignupPipe), this.responseHandler(this.controller.signup));
         this.router.post('/signin', express_1.default.json(), this.responseHandler(this.controller.signin));
     }
