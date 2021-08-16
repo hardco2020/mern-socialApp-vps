@@ -15,7 +15,7 @@ export default function Online({user}) {
         getUser();
     },[])
     return ( 
-        <Link to={friend && "/profile/"+friend.username} style={{textDecoration:"none",color: "inherit"}} >
+        <Link to={friend && {pathname:'/profile',state:{username:friend.username}}} style={{textDecoration:"none",color: "inherit"}} >
         <li className="rightbarFriend">
                     <div className="rightbarProfileImgContainer">
                         <img src={friend && friend.profilePicture!==""  ? friend.profilePicture :"https://i.imgur.com/HeIi0wU.png"}alt="" className="rightbarProfileImg" />

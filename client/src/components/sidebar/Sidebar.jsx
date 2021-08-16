@@ -25,12 +25,12 @@ export default function Sidebar(){
                         <RssFeed className="sidebarIcon"/>
                         <span className="sidebarListItemText">Feed</span>
                     </li>
-                    <Link to="/messenger" style={{textDecoration:"none" ,color:"inherit"}}>
+                    <div onClick={() => window.location.href="/messenger"} style= {{cursor:"pointer"}}>
                     <li className="sidebarListItem">
                         <Chat className="sidebarIcon"/>
                         <span className="sidebarListItemText">聊天室</span>
                     </li>
-                    </Link>
+                    </div>
                     <li className="sidebarListItem">
                         <PlayCircleFilledOutlined className="sidebarIcon"/>
                         <span className="sidebarListItemText">Videos</span>

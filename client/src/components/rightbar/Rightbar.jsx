@@ -7,10 +7,10 @@ import { Button,CircularProgress} from '@material-ui/core'
 import { PersonAdd,PersonAddDisabled,RecordVoiceOver} from '@material-ui/icons'
 import { useRef } from 'react'
 import {io} from 'socket.io-client'
-
+import { Link, useHistory } from "react-router-dom";
 export default function Rightbar({user}) {
     
-    //let history = useHistory()
+    let history = useHistory()
     const [friends,setFriends] = useState([])
     const currentUser = JSON.parse(localStorage.getItem("user"))  
     //console.log(currentUser)
@@ -51,7 +51,7 @@ export default function Rightbar({user}) {
         }
     },[user?._id])
     useEffect(()=>{
-        socket.current = io(process.env.REACT_APP_SOCKET_PORT) //此處要替換成測試andq上線port 
+        socket.current = io(process.env.REACT_APP_SOCKET_PORT,{ transports: ['websocket', 'polling', 'flashsocket'] }) //此處要替換成測試andq上線port 
         socket.current.emit("addUser",currentUser._id)
         socket.current.on("getUsers",users=>{
             setOnlineUsers(
@@ -175,7 +175,7 @@ export default function Rightbar({user}) {
                 <div className="rightbarFollowings">
                     {friends.map((friend)=>(
                     //讓此處Refresh
-                    <div onClick={() => {window.location.href="/profile/"+friend.username}} key={friend._id}>
+                    <div onClick={() => history.push({pathname:"/profile",state:{username: friend.username}})}  key={friend._id}>
                     {/* <Link to={"/profile/"+friend.username} style={{textDecoration:"none"}} key={friend.username}  > */}
                     <div className="rightbarFollowing">
                         <img 

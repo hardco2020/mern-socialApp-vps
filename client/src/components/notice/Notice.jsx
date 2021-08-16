@@ -3,11 +3,12 @@ import { Button,CircularProgress } from '@material-ui/core'
 import { EmojiPeopleRounded,Chat,AddPhotoAlternate,Favorite } from '@material-ui/icons';
 import {format} from 'timeago.js'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory,useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect } from 'react';
 export default function Notice({notices}) {
+    let location = useLocation();
     const [allNotices,setAllNotices] = useState(notices)
     const user = JSON.parse(localStorage.getItem("user"))
     const [acceptLoading,setAcceptLoading] =useState(false)
@@ -27,20 +28,35 @@ export default function Notice({notices}) {
             const res = await axios.put('/api/notice/update/'+notice._id)
             console.log(res.data.data)
             if(notice.object === 'post' || notice.object==='friendRequest'|| notice.object==='friendAccepted'){
-                window.location.href="/profile/"+notice.senderUsername
+                if(location.pathname === "/profile"){
+                    window.location.reload(window.location.reload)
+                }else{
+                    history.push({
+                        pathname: '/profile',
+                        state: { username: notice.senderUsername }
+                    })
+                }
             }
             else if(notice.object ==='message'){
                 let res = await axios.get(`/api/conversations/find/${notice.senderId}/${notice.receiverId[0]}`);
-                history.push({
-                    pathname: '/messenger',
-                    state: { chat: res.data.data }
-                })
+                if(location.pathname === "/messenger"){
+                    window.location.reload()
+                }else{
+                    history.push({
+                        pathname: '/messenger',
+                        state: { chat: res.data.data }
+                    })
+                }
             }
             else if(notice.object ==='comment' || notice.object ==='like'){
-                // history.push({
-                //     pathname:'/post/'+notice.postId
-                // })
-                window.location.href="/post/"+notice.postId
+                 if(location.pathname === "/post/"+notice.postId){
+                    window.location.reload(window.location.reload)
+                }else{
+                    history.push({
+                        pathname:'/post/'+notice.postId,
+                        state: { postId: notice.postId}
+                    })
+                }
             }
         }
         updateNotice()     
@@ -68,9 +84,9 @@ export default function Notice({notices}) {
             // console.log(deletePending.data.data)
             // console.log(sendNotice.data.data)
             setAcceptLoading(false)
+	    window.location.reload()
         }
         action()
-        window.location.reload()
     }
     const fetchData = async()=>{
         console.log("trigger")

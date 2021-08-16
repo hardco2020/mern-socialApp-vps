@@ -35,7 +35,6 @@ export class App {
 
 
   public bootstrap(): void {
-    console.log("cool")
     const httpServer = createServer(this.app);
     
     this.setSocket(httpServer)
@@ -66,7 +65,6 @@ export class App {
     const io = new Server(httpServer, {
       cors:{
         origin:process.env.SOCKET_ORIGIN
-        
       },
     });
     let users:any[] = [];
@@ -81,11 +79,12 @@ export class App {
     }
 
     const getUser = (userId:string)=>{
+	console.log(users)
         return users.find(user=>user.userId === userId)
     }
     io.on("connection",(socket)=>{
         //when connect
-        console.log("a user connected")
+        console.log(users)
         //take userId and socketId from user
         socket.on("addUser",userId=>{
             addUser(userId,socket.id);
@@ -94,6 +93,7 @@ export class App {
         })
         //send and get message
         socket.on("sendMessage",({ senderId,receiverId,text})=>{
+            console.log(senderId,text,receiverId)
             const user = getUser(receiverId);
             io.to(user.socketId).emit("getMessage",{
               senderId,
@@ -113,7 +113,8 @@ export class App {
   }
 
   private setEnvironment(): void {
-    dotenv.config({ path: path.resolve(__dirname, `./environments/${ process.env.NODE_ENV }.env`) });
+    require('dotenv').config()
+    //dotenv.config({ path: path.resolve(__dirname, `./environments/${ process.env.NODE_ENV }.env`) });
   }
   //處理錯誤
   public setException(handler: ErrorRequestHandler): void {
@@ -131,8 +132,8 @@ export class App {
     this.app.use('/', this.route.router);
     //get index file and route
     this.app.get("*",(req,res)=>{
-      res.set("Content-Security-Policy", "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
-      res.sendFile(path.resolve(__dirname,"../client","build","index.html"));
+       res.set("Content-Security-Policy", "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
+       res.sendFile(path.resolve(__dirname,"../client","build","index.html"));
     });
     //this.app.use('/todos', this.todoroute.router);
     //this.app.use('/localauth',this.localauthroute.router);

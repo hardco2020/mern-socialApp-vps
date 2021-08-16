@@ -27,7 +27,8 @@ export default function Messenger() {
     const socket = useRef();
     const scrollRef = useRef();
     useEffect(()=>{
-        socket.current = io(process.env.REACT_APP_SOCKET_PORT) //此處要替換成測試andq上線port 
+        console.log("try again")
+        socket.current = io(process.env.REACT_APP_SOCKET_PORT,{ transports: ['websocket', 'polling', 'flashsocket'] }) //此處要替換成測試andq上線port 
         socket.current.on("getMessage",data=>{
             setArrivalMessage({
                 sender: data.senderId,
@@ -38,13 +39,16 @@ export default function Messenger() {
     },[])
 
     useEffect(()=>{
+	console.log("觸發更新")
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender)&&
         setMessages(prev=>[...prev,arrivalMessage])
     },[arrivalMessage,currentChat])
 
     useEffect(()=>{
+        console.log("try")
         socket.current.emit("addUser",user._id)
         socket.current.on("getUsers",users=>{
+            console.log("收到的訊息",users)
             setOnlineUsers(
                 user.friends.filter((f)=> users.some((u)=>u.userId===f))
             );
@@ -126,6 +130,15 @@ export default function Messenger() {
             if (location.state.chat){
                 console.log(location.state.chat)
                 switchChat(location.state.chat)
+                const test = sessionStorage.getItem('reload', 0);
+                if (test<2){
+                    sessionStorage.setItem('reload', test + 1);
+                    console.log("count")
+                    window.location.reload();
+                }else{
+                    
+                    sessionStorage.removeItem('reload');
+                }
             }else{
                 console.log("wrong")
             }

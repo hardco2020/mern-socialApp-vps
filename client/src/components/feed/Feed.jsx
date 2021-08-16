@@ -20,8 +20,8 @@ export default function Feed({username}) {
         
         const fetchPosts = async ()=>{
             const res = username 
-             ? await axios.get("/api/posts/profile/"+ username+"/"+page)
-             : await axios.get("/api/posts/timeline/all/"+page)    
+             ? await axios.get("/api/posts/profile/"+ username+"/"+0)
+             : await axios.get("/api/posts/timeline/all/"+0)    
             //console.log(res.data.data)
             
             if(res.data.data.length===0){

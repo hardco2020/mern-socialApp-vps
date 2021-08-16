@@ -2,7 +2,7 @@
 import axios from 'axios'
 import { decodeToken } from 'react-jwt';
 import jwt_decode from "jwt-decode";
-export const loginCall = async (userCredential,dispatch)=>{
+export const LoginCall = async (userCredential,dispatch)=>{
     dispatch({type:"LOGIN_START"});
     try{
         console.log(userCredential)
@@ -22,7 +22,7 @@ export const loginCall = async (userCredential,dispatch)=>{
         localStorage.setItem('token',res.data.data)
         localStorage.setItem('user',JSON.stringify(user_data.data.data)) 
         dispatch({type:"LOGIN_SUCCESS",payload:user_data.data.data});
-        window.location.reload()
+	window.location.href='/'
     }catch(e){
         if (e) {
             console.log(e) // some reason error message

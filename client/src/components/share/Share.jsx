@@ -2,8 +2,10 @@ import './share.css'
 import {PermMedia,Label,Room,EmojiEmotions,Cancel}  from '@material-ui/icons'
 import { CircularProgress } from '@material-ui/core'
 import { useState, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 export default function Share() {
+    const history = useHistory();
     const user = JSON.parse(localStorage.getItem("user"))
     const [file,setFile] = useState(null);
     const [isLoading,setIsLoading] = useState(false);
@@ -11,7 +13,7 @@ export default function Share() {
     //upload img to server不是好的主意
     //應該要分開 server
     //console.log(file)
-    const submitHandler = (e) =>{
+    const submitHandler = async(e) =>{
         setIsLoading(true)
         e.preventDefault()
         const newPost = {
@@ -43,13 +45,13 @@ export default function Share() {
                         })
                     }))
                 }
-                uploadFile()
+                await uploadFile()
             }
             else{
                 const directpost = async ()=>{
                     await axios.post("/api/posts",newPost)
                 }
-                directpost()
+                await directpost()
             }
             //做完之後還要丟notification
             const  sendNotice = async ()=>{
@@ -64,7 +66,7 @@ export default function Share() {
                 setIsLoading(false)
                 window.location.reload()
             }
-            sendNotice()
+            await sendNotice()
         }catch(err){
 
         }

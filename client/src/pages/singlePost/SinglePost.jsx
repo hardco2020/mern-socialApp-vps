@@ -5,17 +5,25 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 export default function SinglePost() {
     //抓取postid來找使用者貼文
+    let location = useLocation();
+    //抓取postid來找使用者貼文
     const [post,setPost] = useState(null)
-    const postId = useParams().postId;
+    //const postId = useParams().postId;
     useEffect(() => {
        const getPost = async()=>{
-           const res = await axios.get('/api/posts/'+postId)
+	   if (location.state.postId){
+                console.log(location.state.postId)
+            }else{
+                console.log("wrong")
+            }
+           const res = await axios.get('/api/posts/'+location.state.postId)
            setPost(res.data.data)
        }
        getPost()
-    }, [postId])
+    }, [location.state.postId])
     return (
         <>
         <Topbar/>

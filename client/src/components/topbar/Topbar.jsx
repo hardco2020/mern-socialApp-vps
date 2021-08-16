@@ -52,8 +52,9 @@ export default function Topbar(){
 
     const signout = () =>{
         localStorage.clear();
-        history.push('/login')
-        window.location.reload()
+	window.location.href='/' 
+        //window.history.pushState(null, '/login');
+        //window.location.reload()
     }
     //console.log(member.city)
     //透過user token在對遠端做要求
@@ -104,7 +105,7 @@ export default function Topbar(){
 
                         {results.map((value)=>{
                             return(
-                                <div onClick={() => {window.location.href="/profile/"+value.username}} key={value._id}>
+                                <div onClick={() => history.push({pathname:"/profile",state:{username: value.username}})} key={value._id}>
                                     <MenuItem className="searchItem">
                                         <img src={value.profilePicture!==""? value.profilePicture:"https://i.imgur.com/HeIi0wU.png"} alt="" className="topbarImg" />
                                         {value.username}
@@ -136,7 +137,7 @@ export default function Topbar(){
                         <Notice notices = {notices} />
                  )}  
                 </div>
-                <div onClick={() => {window.location.href="/profile/"+user.username}}>
+                <div onClick={() => history.push({pathname:"/profile",state:{username: user.username}})}>
                 <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"} alt="" className="topbarImg" />
                 </div>
                 <div className="topbarIconItem" onClick={()=>setNoticePopup(!noticePopup)}>

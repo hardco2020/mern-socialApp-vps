@@ -34,13 +34,10 @@ export class NoticeRepository{
         //尋找notice中 包含friends的內容
     }
     public async updateNotice(noticeId:string,readId:string):Promise<NoticeDocument|null>{
-        const notice = await NoticeModel.findByIdAndUpdate(noticeId,
-            { $addToSet :{ read: readId} },
-            {
-                new: true,
-                runValidators: true,
-                useFindAndModify: false
-            }
+        const notice = await NoticeModel.findById(noticeId)
+        const other = await NoticeModel.updateMany(
+            {senderId:notice?.senderId,receiverId:notice?.receiverId,object:notice?.object} ,
+            { $addToSet :{read:readId}}
         )
         return notice
     }

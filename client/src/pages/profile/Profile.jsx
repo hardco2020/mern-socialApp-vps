@@ -11,13 +11,14 @@ import { Edit,LocationCity,Language,FavoriteBorder,HighlightOff,PhotoLibrary,Mes
 import { Countries ,City} from '../../dummyData'
 import Popup from '../../components/popup/Popup'
 import { useRef } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory,useLocation } from 'react-router-dom'
 export default function Profile() {
+    let location = useLocation();
     const history = useHistory();
     const currentUser = JSON.parse(localStorage.getItem("user"))
     const [user,setUser] = useState({});
     const [popup,setPopup] = useState(false);
-    const username = useParams().username;
+    //const username = useParams().username;
     
     //修改個人檔案
     const [editProfile,setEditProfile] = useState(null);
@@ -88,15 +89,20 @@ export default function Profile() {
     useEffect(()=>{
         //這邊要用jwt token去呼叫
         //先隨機給一個 因為還沒拉好認證系統
+         if (location.state.username){
+            console.log(location.state.username)
+         }else{
+            console.log("wrong")
+         }
         const fetchUser = async ()=>{
             const res = await axios.get(
-                `/api/users?username=${username}`,
+                `/api/users?username=${location.state.username}`,
             );
             //console.log(res.data.data)
             setUser(res.data.data)
         };
         fetchUser();
-    },[username]) //只render一次
+    },[location.state.username]) //只render一次
 
     const openChat = ()=>{
         const setChat = async()=>{
@@ -251,7 +257,7 @@ export default function Profile() {
                     </div>
                 </div>
                 <div className="profileRightBottom">
-                    <Feed username={username}/>
+                    <Feed username={location.state.username}/>
                     <Rightbar user={user}/> 
                 </div>
             </div>     

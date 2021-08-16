@@ -1,20 +1,23 @@
 import "./login.css"
 import { useContext,useRef } from "react"
-import { loginCall } from "../../apiCalls";
+import { LoginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress} from "@material-ui/core"
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 export default function Login() {
+    const history = useHistory();
     //也可以用useState但會影響效能
     const email = useRef();
     const password = useRef();
     const {user,isFetching,error,dispatch} = useContext(AuthContext);
     const handleClick =(e) => {
         e.preventDefault();
-        loginCall(
+        LoginCall(
             {username:email.current.value ,password: password.current.value},
             dispatch
         );
+	//window.location.href="/"
+	//history.push('/register')
     }
     console.log(user)
     console.log(error)

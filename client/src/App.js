@@ -7,11 +7,14 @@ import{
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  useHistory
 } from 'react-router-dom'
 import axios from 'axios';
 import SinglePost from './pages/singlePost/SinglePost';
+import jwt_decode from "jwt-decode";
 function App() {
+  let history = useHistory();
   const user = JSON.parse(localStorage.getItem("user"))
   const token = localStorage.getItem("token")
   //console.log(token)
@@ -22,7 +25,17 @@ function App() {
     axios.interceptors.request.use(function (config) {
     config.headers.Authorization = "Bearer "+token  ;
     return config;
-  });
+    });
+    const token_time = jwt_decode(token).exp*1000
+    console.log(token_time)
+    console.log(new Date(token_time))
+    console.log(new Date())
+    if( new Date()<new Date(token_time)){
+      console.log("還可以用")
+    }else{
+      localStorage.clear()
+      history.push('/login')
+    }
   }
   // axios.interceptors.request.use(function (config) {
   //   config.headers.Authorization = "Bearer "+token  ;
@@ -45,7 +58,7 @@ function App() {
         <Route path="/messenger">
           {!user? <Redirect to="/" /> : <Messenger/>}
         </Route>
-        <Route path="/profile/:username">
+        <Route path="/profile">
           <Profile/>
         </Route>
         <Route path="/post/:postId">

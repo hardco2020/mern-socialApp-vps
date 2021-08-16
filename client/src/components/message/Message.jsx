@@ -1,10 +1,12 @@
 import './message.css'
 import {format} from 'timeago.js'
+import { useHistory } from 'react-router'
 export default function Message({message,own,data}) {
+    let history = useHistory();
     return (
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
-                <div onClick={() => {window.location.href="/profile/"+data.username}} >
+                <div onClick={() => history.push({pathname:"/profile",state:{username: data.username}})}>
                 <img
                  className="messageImg"
                  src={data && data.profilePicture!=="" ? data.profilePicture : "https://i.imgur.com/HeIi0wU.png"}

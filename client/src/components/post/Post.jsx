@@ -101,6 +101,7 @@ const Post = (({post})=> {
         if (hideComment === ""){
             setHideComment('none')
         }
+
         else{
             setHideComment('')
         }
@@ -109,9 +110,8 @@ const Post = (({post})=> {
         <div className="post">
              <div className="postWrapper">
                  <div className="postTop">
-                     <div className="postTopLeft">
-                         <Link to={`/profile/${user.username}`}>
-                         
+                     <div className="postTopLeft">                       
+		         <Link to={{pathname:'/profile',state:{username:user.username}}}>                       
                          <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"}
                               alt="" 
                               className="postProfileImg"   
