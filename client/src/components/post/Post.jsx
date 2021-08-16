@@ -181,7 +181,7 @@ const Post = (({post})=> {
                                             </div>
                                         </div>
                                         <div className="postCommentTime">
-                                            {format(comment.date)}
+                                            {format(comment.date)} 
                                         </div>
                                     </div>
                                 )

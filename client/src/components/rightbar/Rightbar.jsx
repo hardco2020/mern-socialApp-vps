@@ -174,7 +174,7 @@ export default function Rightbar({user}) {
                 <h4 className="rightbarTitle">他的朋友</h4>
                 <div className="rightbarFollowings">
                     {friends.map((friend)=>(
-                    //讓此處Refresh
+                    //讓此處Refresh 
                     <div onClick={() => history.push({pathname:"/profile",state:{username: friend.username}})}  key={friend._id}>
                     {/* <Link to={"/profile/"+friend.username} style={{textDecoration:"none"}} key={friend.username}  > */}
                     <div className="rightbarFollowing">
