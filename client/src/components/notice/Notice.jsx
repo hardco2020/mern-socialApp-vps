@@ -28,11 +28,11 @@ export default function Notice({notices}) {
             const res = await axios.put('/api/notice/update/'+notice._id)
             console.log(res.data.data)
             if(notice.object === 'post' || notice.object==='friendRequest'|| notice.object==='friendAccepted'){
-                if(location.pathname === "/profile"){
+                if(location.pathname === "/profile/"+notice.senderUsername){
                     window.location.reload(window.location.reload)
                 }else{
                     history.push({
-                        pathname: '/profile',
+                        pathname: '/profile/'+notice.senderUsername,
                         state: { username: notice.senderUsername }
                     })
                 }
@@ -40,7 +40,10 @@ export default function Notice({notices}) {
             else if(notice.object ==='message'){
                 let res = await axios.get(`/api/conversations/find/${notice.senderId}/${notice.receiverId[0]}`);
                 if(location.pathname === "/messenger"){
-                    window.location.reload()
+                    history.push({
+                        pathname: '/messenger',
+                        state: { chat: res.data.data }
+                    })
                 }else{
                     history.push({
                         pathname: '/messenger',
@@ -84,7 +87,7 @@ export default function Notice({notices}) {
             // console.log(deletePending.data.data)
             // console.log(sendNotice.data.data)
             setAcceptLoading(false)
-	    window.location.reload()
+	        window.location.reload()
         }
         action()
     }

@@ -111,7 +111,7 @@ const Post = (({post})=> {
              <div className="postWrapper">
                  <div className="postTop">
                      <div className="postTopLeft">                       
-		         <Link to={{pathname:'/profile',state:{username:user.username}}}>                       
+		         <Link to={{pathname:'/profile/'+user.username,state:{username:user.username}}}>                       
                          <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"}
                               alt="" 
                               className="postProfileImg"   
@@ -170,11 +170,13 @@ const Post = (({post})=> {
                                 return(
                                     <div className="postSingleComment" key={comment._id}>
                                         <div className="postSingleCommentMain">
+                                        <Link to={{pathname:'/profile/'+comment.userName,state:{username:comment.userName}}}>
                                             <img 
                                                 src={comment.userPic? comment.userPic : "https://i.imgur.com/HeIi0wU.png"}
                                                 alt="" 
                                                 className="postSendCommentImg"   
                                             />
+                                        </Link>
                                             <div className="postCommentArea">
                                                 <span className="postCommentUsername"><b>{comment.userName}</b></span>
                                                 <span className="postCommentContent">{comment.comment}</span>
