@@ -29,7 +29,10 @@ export default function Notice({notices}) {
             console.log(res.data.data)
             if(notice.object === 'post' || notice.object==='friendRequest'|| notice.object==='friendAccepted'){
                 if(location.pathname === "/profile"){
-                    window.location.reload(window.location.reload)
+                    history.replace({
+                        pathname: '/profile',
+                        state: { username: notice.senderUsername }
+                    })
                 }else{
                     history.push({
                         pathname: '/profile',
@@ -53,7 +56,10 @@ export default function Notice({notices}) {
             }
             else if(notice.object ==='comment' || notice.object ==='like'){
                  if(location.pathname === "/post"){
-                    window.location.reload(window.location.reload)
+                    history.replace({
+                        pathname: '/post',
+                        state: { postId: notice.postId}
+                    })
                 }else{
                     history.push({
                         pathname:'/post',
