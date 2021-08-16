@@ -45,6 +45,7 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/reload" component={null} key="reload" />
         <Route exact path="/">
           {/* 確認有login才能進去Home */}
           {user? <Home/> : <Register/> }

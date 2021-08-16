@@ -29,10 +29,13 @@ export default function Notice({notices}) {
             console.log(res.data.data)
             if(notice.object === 'post' || notice.object==='friendRequest'|| notice.object==='friendAccepted'){
                 if(location.pathname === "/profile"){
-                    history.replace({
-                        pathname: '/profile',
-                        state: { username: notice.senderUsername }
-                    })
+                    history.replace(`/reload`);
+                        setTimeout(() => {
+                            history.replace({
+                                pathname: '/profile',
+                                state: { username: notice.senderUsername }
+                            })
+                        });
                 }else{
                     history.push({
                         pathname: '/profile',
@@ -43,10 +46,13 @@ export default function Notice({notices}) {
             else if(notice.object ==='message'){
                 let res = await axios.get(`/api/conversations/find/${notice.senderId}/${notice.receiverId[0]}`);
                 if(location.pathname === "/messenger"){
-                    history.push({
-                        pathname: '/messenger',
-                        state: { chat: res.data.data }
-                    })
+                    history.replace(`/reload`);
+                        setTimeout(() => {
+                            history.replace({
+                                pathname: '/messenger',
+                                state: { chat: res.data.data }
+                            })
+                        });
                 }else{
                     history.push({
                         pathname: '/messenger',
@@ -56,10 +62,13 @@ export default function Notice({notices}) {
             }
             else if(notice.object ==='comment' || notice.object ==='like'){
                  if(location.pathname === "/post"){
-                    history.replace({
-                        pathname: '/post',
-                        state: { postId: notice.postId}
-                    })
+                    history.replace(`/reload`);
+                        setTimeout(() => {
+                            history.replace({
+                                pathname:'/post',
+                                state: { postId: notice.postId}
+                            })
+                        });
                 }else{
                     history.push({
                         pathname:'/post',
