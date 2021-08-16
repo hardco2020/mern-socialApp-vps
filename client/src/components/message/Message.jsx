@@ -6,7 +6,7 @@ export default function Message({message,own,data}) {
     return (
         <div className={own ? "message own" : "message"}>
             <div className="messageTop">
-                <div onClick={() => history.push({pathname:"/profile/"+data.username,state:{username: data.username}})}>
+                <div onClick={() => history.push({pathname:"/profile",state:{username: data.username}})}>
                 <img
                  className="messageImg"
                  src={data && data.profilePicture!=="" ? data.profilePicture : "https://i.imgur.com/HeIi0wU.png"}

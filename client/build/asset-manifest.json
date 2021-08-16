@@ -1,39 +1,20 @@
 {
   "files": {
-<<<<<<< Updated upstream
     "main.css": "./static/css/main.dde2d8bd.chunk.css",
-    "main.js": "./static/js/main.defcebbf.chunk.js",
-    "main.js.map": "./static/js/main.defcebbf.chunk.js.map",
+    "main.js": "./static/js/main.a3082319.chunk.js",
+    "main.js.map": "./static/js/main.a3082319.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.620a1d68.js",
     "runtime-main.js.map": "./static/js/runtime-main.620a1d68.js.map",
-    "static/js/2.691b41de.chunk.js": "./static/js/2.691b41de.chunk.js",
-    "static/js/2.691b41de.chunk.js.map": "./static/js/2.691b41de.chunk.js.map",
+    "static/js/2.6ab444ef.chunk.js": "./static/js/2.6ab444ef.chunk.js",
+    "static/js/2.6ab444ef.chunk.js.map": "./static/js/2.6ab444ef.chunk.js.map",
     "index.html": "./index.html",
     "static/css/main.dde2d8bd.chunk.css.map": "./static/css/main.dde2d8bd.chunk.css.map",
-    "static/js/2.691b41de.chunk.js.LICENSE.txt": "./static/js/2.691b41de.chunk.js.LICENSE.txt"
+    "static/js/2.6ab444ef.chunk.js.LICENSE.txt": "./static/js/2.6ab444ef.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.620a1d68.js",
-    "static/js/2.691b41de.chunk.js",
+    "static/js/2.6ab444ef.chunk.js",
     "static/css/main.dde2d8bd.chunk.css",
-    "static/js/main.defcebbf.chunk.js"
-=======
-    "main.css": "./static/css/main.029cdf1b.chunk.css",
-    "main.js": "./static/js/main.daa3062b.chunk.js",
-    "main.js.map": "./static/js/main.daa3062b.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.620a1d68.js",
-    "runtime-main.js.map": "./static/js/runtime-main.620a1d68.js.map",
-    "static/js/2.d3c24aac.chunk.js": "./static/js/2.d3c24aac.chunk.js",
-    "static/js/2.d3c24aac.chunk.js.map": "./static/js/2.d3c24aac.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/main.029cdf1b.chunk.css.map": "./static/css/main.029cdf1b.chunk.css.map",
-    "static/js/2.d3c24aac.chunk.js.LICENSE.txt": "./static/js/2.d3c24aac.chunk.js.LICENSE.txt"
-  },
-  "entrypoints": [
-    "static/js/runtime-main.620a1d68.js",
-    "static/js/2.d3c24aac.chunk.js",
-    "static/css/main.029cdf1b.chunk.css",
-    "static/js/main.daa3062b.chunk.js"
->>>>>>> Stashed changes
+    "static/js/main.a3082319.chunk.js"
   ]
 }

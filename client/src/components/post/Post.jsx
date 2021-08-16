@@ -111,7 +111,7 @@ const Post = (({post})=> {
              <div className="postWrapper">
                  <div className="postTop">
                      <div className="postTopLeft">                       
-		         <Link to={{pathname:'/profile/'+user.username,state:{username:user.username}}}>                       
+		         <Link to={{pathname:'/profile',state:{username:user.username}}}>                       
                          <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"}
                               alt="" 
                               className="postProfileImg"   
@@ -183,7 +183,7 @@ const Post = (({post})=> {
                                             </div>
                                         </div>
                                         <div className="postCommentTime">
-                                            {format(comment.date)}
+                                            {format(comment.date)} 
                                         </div>
                                     </div>
                                 )

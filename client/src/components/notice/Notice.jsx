@@ -28,11 +28,11 @@ export default function Notice({notices}) {
             const res = await axios.put('/api/notice/update/'+notice._id)
             console.log(res.data.data)
             if(notice.object === 'post' || notice.object==='friendRequest'|| notice.object==='friendAccepted'){
-                if(location.pathname === "/profile/"+notice.senderUsername){
+                if(location.pathname === "/profile"){
                     window.location.reload(window.location.reload)
                 }else{
                     history.push({
-                        pathname: '/profile/'+notice.senderUsername,
+                        pathname: '/profile',
                         state: { username: notice.senderUsername }
                     })
                 }
@@ -52,11 +52,11 @@ export default function Notice({notices}) {
                 }
             }
             else if(notice.object ==='comment' || notice.object ==='like'){
-                 if(location.pathname === "/post/"+notice.postId){
+                 if(location.pathname === "/post"){
                     window.location.reload(window.location.reload)
                 }else{
                     history.push({
-                        pathname:'/post/'+notice.postId,
+                        pathname:'/post',
                         state: { postId: notice.postId}
                     })
                 }

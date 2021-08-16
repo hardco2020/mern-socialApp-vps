@@ -173,9 +173,9 @@ export default function Rightbar({user}) {
                 </div>
                 <h4 className="rightbarTitle">他的朋友</h4>
                 <div className="rightbarFollowings">
-                    {friends.map((friend)=>(
-                    //讓此處Refresh
-                    <div onClick={() => history.push({pathname:"/profile/"+friend.username,state:{username: friend.username}})}  key={friend._id}>
+			{friends.map((friend)=>(
+                    //讓此處Refresh 
+                    <div onClick={() => history.push({pathname:"/profile",state:{username: friend.username}})}  key={friend._id}>
                     {/* <Link to={"/profile/"+friend.username} style={{textDecoration:"none"}} key={friend.username}  > */}
                     <div className="rightbarFollowing">
                         <img 
@@ -186,12 +186,10 @@ export default function Rightbar({user}) {
                             alt="" 
                             className="rightbarFollowingImg" 
                         />
-                        <span className="rightbarFollowingName">{friend.username}</span>
+                        <span className="rightbarFollowingName">{friend.username}</span>
                     </div>
-                    {/* </Link> */}
                     </div>
                     ))}
-
                 </div>
             </>
         )

@@ -58,10 +58,10 @@ function App() {
         <Route path="/messenger">
           {!user? <Redirect to="/" /> : <Messenger/>}
         </Route>
-        <Route path="/profile:username">
+        <Route path="/profile">
           <Profile/>
         </Route>
-        <Route path="/post/:postId">
+        <Route path="/post">
           <SinglePost/>
         </Route>
         <Route path="/">
