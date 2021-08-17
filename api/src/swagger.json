@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "title": "SuperSideProject",
+    "title": "Hardco-social-API",
     "contact": {}
   },
-  "host": "localhost:5000",
+  "host": "api.hardco-social.xyz",
   "basePath": "/",
   "securityDefinitions": {
     "api_auth":{
