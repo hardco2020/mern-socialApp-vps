@@ -11,9 +11,9 @@ import { ErrorRequestHandler } from 'express';
 import { Database } from './database';
 import passport from 'passport';
 import { createServer } from 'http';
-import { Server,Socket } from 'socket.io'
-import JWTGuard from 'express-jwt';
-import { HttpStatus } from './types/response.type'
+import { Server,Socket } from 'socket.io';
+import swaggerUi = require('swagger-ui-express');
+import * as swaggerDocument from './swagger.json';
 
 export class App {
 
@@ -130,6 +130,7 @@ export class App {
   private registerRoute(): void {;
     this.route = new AppRoute()
     this.app.use('/', this.route.router);
+    this.app.use('/swagger',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
     //get index file and route
     this.app.get("*",(req,res)=>{
        res.set("Content-Security-Policy", "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")

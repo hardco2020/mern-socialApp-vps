@@ -1,0 +1,1527 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "SuperSideProject",
+    "contact": {}
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "securityDefinitions": {
+    "api_auth":{
+      "type": "apiKey",
+      "name":"Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/users": {
+      "get": {
+        "security":[
+          {
+            "api_auth":[]
+          }
+        ],
+        "summary": "get User's information",
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name": "userId",
+            "in" : "query",
+            "description": "userId",
+            "required":true,
+            "type": "string",
+            "example":"60ebc2404a6ed456750998b1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully get user",
+            "headers": {}
+          },
+          "500":{
+            "description":"user not found"
+          },
+          "401":{
+            "description": "unauthorized, lack of jwt token"
+          }
+        }
+      },
+      "put": {
+        "security":[
+          {
+            "api_auth":[]
+          }
+        ],
+        "summary": "Update user information using jwt token",
+        "tags": [  
+          "User"
+        ],
+        "operationId": "\bUser_update",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Pet object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User_update_example"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully update",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "items" : {
+                    "$ref" : "#/definitions/User"
+                  }
+                }
+              }
+            }
+          },
+          "401":{
+            "description": "jwt token not found"
+          }
+        }
+      }
+    },
+    "/api/users/test": {
+      "get": {
+        "security":[
+          {
+            "api_auth":["Bearer "]
+          }
+        ],
+        "summary": "User_route",
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_route",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successfully get route",
+            "headers": {}
+          },
+          "401":{
+            "description": "unauthorized, lack of jwt token"
+          }
+        }
+      }
+    },
+    "/auth/local/signin": {
+      "post": {
+        "summary": "localAuth_signIn",
+        "tags": [
+          "User"
+        ],
+        "operationId": "localAuth_signIn",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/localAuth_signIn_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully login",
+            "headers": {}
+          },
+          "403":{
+            "description": "wrong password"
+          },
+          "404":{
+            "description": "user not found"
+          }
+        }
+      }
+    },
+    "/auth/local/signup": {
+      "post": {
+        "summary": "localAuth_post",
+        "tags": [
+          "User"
+        ],
+        "operationId": "localAuth_post",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/localAuth_post_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully create account",
+            "headers": {}
+          },
+          "409":{
+            "description":"the account or email has been used"
+          },
+          "500":{
+            "description":"user validation failed, format is wrong" 
+          }
+        }
+      }
+    },
+    "/api/users/friends/{id}": {
+      "get": {
+        "security":[
+          {
+            "api_auth":["Bearer "]
+          }
+        ],
+        "summary": "get user's friends",
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_getFriends",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "example": "60ebc2404a6ed456750998b1",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "succeessfully get user friend's information",
+            "headers": {}
+          },
+          "401":{
+            "description":"invalid token or jwt expired"
+          }
+        }
+      }
+    },
+    "/api/users/friend/{id}": {
+      "put": {
+        "security":[
+          {
+            "api_auth":["Bearer "]
+          }
+        ],
+        "summary": "Add friends by usertoken and params",
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_AddFriend",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "example": "60ebc2404a6ed456750998b1",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success! ",
+            "headers": {}
+          },
+          "409":{
+            "description":"send friend request to yourself is not allowed or you may already be friends with this guy"
+          },
+          "401":{
+            "description": "unauthorized, lack of jwt token"
+          }
+        }
+      }
+    },
+    "/api/users/unfriend/{id}": {
+      "put": {
+        "security":[
+          {
+            "api_auth":["Bearer "]
+          }
+        ],
+        "summary": "Unfriend by usertoken and params",
+        "tags": [
+          "User"
+        ],
+        "operationId": "User_DeleteFriend",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "example": "60ebc2404a6ed456750998b1",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully delete the friend",
+            "headers": {}
+          },
+          "401":{
+            "description": "unauthorized, lack of jwt token"
+          },
+          "409":{
+             "description":"unfriend yourself is not allowed or you are not a friend with this guy"
+          }
+        }
+      }
+    },
+    "/api/todos": {
+      "get": {
+        "summary": "Todo_get",
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "Todo_get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "Todo_post",
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "Todo_post",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Todo_post_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/60e13757e20cbbcd82825cb0/completed": {
+      "patch": {
+        "summary": "Todo_update",
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "Todo_update",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Todo_update_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/60e13757e20cbbcd82825cb0": {
+      "get": {
+        "summary": "Todo_find",
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "Todo_find",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/60e128338d4dcccbe836372b": {
+      "delete": {
+        "summary": "Todo_delete",
+        "tags": [
+          "Todo"
+        ],
+        "operationId": "Todo_delete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/test": {
+      "get": {
+        "summary": "Post_route",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_route",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/60ecd2521599b86baeb89b98": {
+      "put": {
+        "summary": "Post_update",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_update",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Post_update_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts": {
+      "post": {
+        "summary": "Post_create",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_create",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Post_create_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/60ec558e13bb6261d9f78176": {
+      "delete": {
+        "summary": "Post_delete",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_delete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/60ec64a1daeaec66b2175f2e/like": {
+      "put": {
+        "summary": "Post_like_dislike",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_like_dislike",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/60ec64a1daeaec66b2175f2e": {
+      "get": {
+        "summary": "Post_get",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/timeline/all": {
+      "get": {
+        "summary": "Post_timeline",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_timeline",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/posts/profile/newtest04": {
+      "get": {
+        "summary": "Post_profile",
+        "tags": [
+          "Post"
+        ],
+        "operationId": "Post_profile",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/image": {
+      "post": {
+        "summary": "imgur_test",
+        "tags": [
+          "Imgur"
+        ],
+        "operationId": "imgur_test",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/posts/comment/60fa5c35e89926001532cba8": {
+      "post": {
+        "summary": "Post_Comment",
+        "tags": [
+          "Comment"
+        ],
+        "operationId": "Post_Comment",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Post_Comment_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/messages/test": {
+      "get": {
+        "summary": "Messenger_routeTest",
+        "tags": [
+          "Messenger"
+        ],
+        "operationId": "Messenger_routeTest",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/conversations": {
+      "post": {
+        "summary": "Conversation_create",
+        "tags": [
+          "Messenger"
+        ],
+        "operationId": "Conversation_create",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Conversation_create_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/conversations/60ebc2404a6ed456750998b1": {
+      "get": {
+        "summary": "Conversation_get",
+        "tags": [
+          "Messenger"
+        ],
+        "operationId": "Conversation_get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/messages": {
+      "post": {
+        "summary": "Message_send",
+        "tags": [
+          "Messenger"
+        ],
+        "operationId": "Message_send",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Message_send_Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/messages/610abd3626322356dab0f065": {
+      "get": {
+        "summary": "Message_get",
+        "tags": [
+          "Messenger"
+        ],
+        "operationId": "Message_get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/notice": {
+      "post": {
+        "summary": "notice_send",
+        "tags": [
+          "Notice"
+        ],
+        "operationId": "notice_send",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/notice_send_request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/notice/update/610f59cb364bc237a25931e3": {
+      "put": {
+        "summary": "Notice_update",
+        "tags": [
+          "Notice"
+        ],
+        "operationId": "Notice_update",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/api/users/pending/60eb81f9d345d0426a518dd7": {
+      "post": {
+        "summary": "pending_create",
+        "tags": [
+          "Pending"
+        ],
+        "operationId": "pending_create",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "summary": "pending_get",
+        "tags": [
+          "Pending"
+        ],
+        "operationId": "pending_get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "default": "Bearer {token}",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "object",
+          "properties" : {
+            "salt" : {
+              "type" : "stirng"
+            },
+            "hash" : {
+              "type" : "string"
+            }
+          }
+        },
+        "profilePicture" : {
+          "type" : "string"
+        },
+        "coverPicture" : {
+          "type" : "string"
+        },
+        "desc" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "from" : {
+          "type" : "string"
+        },
+        "relationship" : {
+          "type" : "number"
+        },
+        "phone" : {
+          "type" : "string"
+        },
+        "friends" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "description" : "friend's userId"
+          }
+        }
+      },
+      "xml" : {
+        "name" : "User"
+      }
+    },
+    "Post" : {
+      "type" : "object",
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "userId" : {
+          "type" : "string",
+          "description" : "userId in User"
+        },
+        "desc" : {
+          "type" : "string",
+          "description" : "post's content"
+        },
+        "img" : {
+          "type" : "string",
+          "description" : "URL in imgur"
+        },
+        "comment" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "description" : "userId in User"
+          }
+        },
+        "likes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "xml" : {
+        "name" : "Post"
+      }
+    },
+    "Notice" : {
+      "type" : "object",
+      "properties" : {
+        "read" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "description" : "user who read the information"
+          }
+        },
+        "receiverId" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "description" : "user who get the notice"
+          }
+        },
+        "object" : {
+          "type" : "string",
+          "description" : "The type of notice, like friendRequest,newPost,comments"
+        },
+        "senderId" : {
+          "type" : "string"
+        },
+        "senderPic" : {
+          "type" : "string"
+        },
+        "senderUsername" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "Notice"
+      }
+    },
+    "Pending" : {
+      "type" : "object",
+      "properties" : {
+        "members" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "description" : "both side of pending"
+          }
+        },
+        "senderPending" : {
+          "type" : "boolean"
+        },
+        "receiverPending" : {
+          "type" : "boolean"
+        }
+      },
+      "xml" : {
+        "name" : "Pending"
+      }
+    },
+    "Messages" : {
+      "type" : "object",
+      "properties" : {
+        "conversationId" : {
+          "type" : "string"
+        },
+        "sender" : {
+          "type" : "string"
+        },
+        "text" : {
+          "type" : "string"
+        }
+      },
+      "xml" : {
+        "name" : "Messages"
+      }
+    },
+    "Conversation" : {
+      "type" : "object",
+      "properties" : {
+        "members" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "description" : "userId of conversation"
+          }
+        }
+      }
+    },
+    "User_update_example":{
+      "example": {
+        "profilePicture":"https://imgur.com/P68DSf9.jpg",
+        "coverPicture":"https://imgur.com/kM5r80s.jpg"
+      },
+      "type": "object",
+      "properties": {
+        "profilePicture": {
+          "type": "string"
+        },
+        "coverPitcture": {
+          "type": "string"
+        }
+      }
+    },
+    "localAuth_signIn_Request": {
+      "title": "localAuth_signIn_Request",
+      "example": {
+        "username": "newtest06",
+        "password": "newtest12345"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "localAuth_post_Request": {
+      "title": "localAuth_post_Request",
+      "example": {
+        "username": "newtest08",
+        "password": "newtest12345",
+        "email": "newtest08@gmail.com"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "email"
+      ]
+    },
+    "Todo_update_Request": {
+      "title": "Todo_update_Request",
+      "example": {
+        "completed": true
+      },
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "completed"
+      ]
+    },
+    "Todo_post_Request": {
+      "title": "Todo_post_Request",
+      "example": {
+        "content": "處理回傳data",
+        "time": "上午07:06",
+        "date": "2021/7/12"
+      },
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "time",
+        "date"
+      ]
+    },
+    "Post_update_Request": {
+      "title": "Post_update_Request",
+      "example": {
+        "desc": "我愛霸道總柴阿昌",
+        "img": "post/4.jpg"
+      },
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string"
+        },
+        "img": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "desc",
+        "img"
+      ]
+    },
+    "Post_create_Request": {
+      "title": "Post_create_Request",
+      "example": {
+        "desc": "前端",
+        "img": "someimage"
+      },
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string"
+        },
+        "img": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "desc",
+        "img"
+      ]
+    },
+    "Post_Comment_Request": {
+      "title": "Post_Comment_Request",
+      "example": {
+        "userName": "我愛霸道總柴阿昌",
+        "userPic": "https://i.imgur.com/NYPDStw.jpg",
+        "comment": "真假",
+        "date": "Mon Aug 02 2021 22:37:38 GMT+0800 "
+      },
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "userPic": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userName",
+        "userPic",
+        "comment",
+        "date"
+      ]
+    },
+    "Conversation_create_Request": {
+      "title": "Conversation_create_Request",
+      "example": {
+        "senderId": "60ebc2404a6ed456750998b1",
+        "receiverId": "60fa09f314047b0015e45e3d"
+      },
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "type": "string"
+        },
+        "receiverId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "senderId",
+        "receiverId"
+      ]
+    },
+    "Message_send_Request": {
+      "title": "Message_send_Request",
+      "example": {
+        "conversationId": "610b1c3426322356dab0f067",
+        "sender": "60ebc2404a6ed456750998b1",
+        "text": "你這個大北"
+      },
+      "type": "object",
+      "properties": {
+        "conversationId": {
+          "type": "string"
+        },
+        "sender": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "conversationId",
+        "sender",
+        "text"
+      ]
+    },
+    "notice_send_request": {
+      "title": "notice_send_request",
+      "example": {
+        "senderId": "60fa062b14047b0015e45e35",
+        "object": "friendAccepted"
+      },
+      "type": "object",
+      "properties": {
+        "senderId": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "senderId",
+        "object"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "User"
+    },
+    {
+      "name": "Todo"
+    },
+    {
+      "name": "Post"
+    },
+    {
+      "name": "Imgur"
+    },
+    {
+      "name": "Search"
+    },
+    {
+      "name": "RecommendFirends"
+    },
+    {
+      "name": "Comment"
+    },
+    {
+      "name": "Messenger"
+    },
+    {
+      "name": "Notice"
+    },
+    {
+      "name": "Pending"
+    }
+  ]
+
+}
