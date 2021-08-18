@@ -21,8 +21,6 @@
 - ApiTest https://api.hardco-social.xyz/swagger
 
 ## Preivew (There are so many feature so I'm just gonna preview some of them)
-### Post feature
-![image](postFunction.gif)
 
 ### Notice feature
 ![image](NoticeFunction.gif)
