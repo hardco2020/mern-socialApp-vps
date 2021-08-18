@@ -18,7 +18,7 @@
 
 ## Try it your self
 - WebsiteLink https://hardco-social.xyz/
-- ApiTest https://api.hardco-social.xyz/swagger
+- ApiTest https://api.hardco-social.xyz/swagger I only update user's part since I made the website all by myself
 
 ## Preivew (There are so many feature so I'm just gonna preview some of them)
 
