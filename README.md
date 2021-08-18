@@ -25,7 +25,7 @@
 ![image](postFunction.gif)
 
 ### Notice feature
-
+![image](NoticeFunction.gif)
 
 
 ## Develop environment
