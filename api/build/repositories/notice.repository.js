@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NoticeRepository = void 0;
 const notice_model_1 = require("../models/notice.model");
+const local_auth_model_1 = require("../models/local-auth.model");
 class NoticeRepository {
     async sendNotice(senderId, object, senderPic, senderUsername, receiverId) {
         const newNotice = new notice_model_1.NoticeModel({
@@ -17,19 +18,20 @@ class NoticeRepository {
     }
     async getNotice(id, page) {
         const notices = await notice_model_1.NoticeModel.find({ "receiverId": id }).sort([['createdAt', -1]]).limit(10).skip(page * 10);
-        return notices;
+        const intime_notices = await Promise.all(notices.map(async (n) => {
+            const user = await local_auth_model_1.LocalAuthModel.findById(n.senderId);
+            console.log(user);
+            if (user !== null) {
+                n.senderPic = user.profilePicture;
+                n.senderUsername = user.username;
+            }
+            return n;
+        }));
+        return intime_notices;
     }
     async updateNotice(noticeId, readId) {
-<<<<<<< HEAD
         const notice = await notice_model_1.NoticeModel.findById(noticeId);
         const other = await notice_model_1.NoticeModel.updateMany({ senderId: notice === null || notice === void 0 ? void 0 : notice.senderId, receiverId: notice === null || notice === void 0 ? void 0 : notice.receiverId, object: notice === null || notice === void 0 ? void 0 : notice.object }, { $addToSet: { read: readId } });
-=======
-        const notice = await notice_model_1.NoticeModel.findByIdAndUpdate(noticeId, { $addToSet: { read: readId } }, {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false
-        });
->>>>>>> 905e60bc7194c5cdd226b6c6b996bbc95d9ef0f5
         return notice;
     }
     async sendNoticePost(senderId, object, senderPic, senderUsername, receiverId, postId) {
