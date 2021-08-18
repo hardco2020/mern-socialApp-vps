@@ -23,7 +23,7 @@
 ## Preivew (There are so many feature so I'm just gonna preview some of them)
 
 ### Notice feature
-![image](NoticeFunction.gif)
+![image](notice.gif)
 
 
 ## Develop environment
