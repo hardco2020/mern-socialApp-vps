@@ -26,10 +26,10 @@ export class NoticeRepository{
         const saveNotice = await newNotice.save();
         return saveNotice;
     }
-    public async getNotice(id:string,page:number):Promise<NoticeDocument[]>{
+    public async getNotice(id:string,page:number){
         //先找使用者的friends/follower
         //在receiver裡有自己才回傳
-        const notices = await NoticeModel.find({ "receiverId": id}).sort([['createdAt', -1]]).limit(10).skip(page*10)
+        const  notices = await NoticeModel.find({ "receiverId": id}).sort([['createdAt', -1]]).limit(10).skip(page*10)
         const intime_notices = await Promise.all(notices.map(async(n)=>{
             const user = await LocalAuthModel.findById(n.senderId)
             console.log(user)
@@ -39,6 +39,7 @@ export class NoticeRepository{
             }
             return n
         }))
+        console.log(intime_notices)
         //return notices
         return intime_notices
         //尋找notice中 包含friends的內容
