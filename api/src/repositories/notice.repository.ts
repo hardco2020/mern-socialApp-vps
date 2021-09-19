@@ -30,7 +30,17 @@ export class NoticeRepository{
         //先找使用者的friends/follower
         //在receiver裡有自己才回傳
         const notices = await NoticeModel.find({ "receiverId": id}).sort([['createdAt', -1]]).limit(10).skip(page*10)
-        return notices
+        const intime_notices = await Promise.all(notices.map(async(n)=>{
+            const user = await LocalAuthModel.findById(n.senderId)
+            console.log(user)
+            if(user!==null){
+                n.senderPic= user.profilePicture
+                n.senderUsername = user.username
+            }
+            return n
+        }))
+        //return notices
+        return intime_notices
         //尋找notice中 包含friends的內容
     }
     public async updateNotice(noticeId:string,readId:string):Promise<NoticeDocument|null>{
