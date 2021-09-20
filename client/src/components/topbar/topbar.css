@@ -38,12 +38,27 @@
     /* Pack items around the center */ 
     align-items: center;
 }
+.searchbarMobile{
+    width:100%;
+    height:30px;
+    background-color: white;
+    /* border-radius 允许你设置元素的外边框圆角。当使用一个半径时确定一个圆形，当使用两个半径时确定一个椭圆。这个(椭)圆与边框的交集形成圆角效果。 */
+    /* border-radius: 30px; */
+    display: flex;
+    /* Pack items around the center */ 
+    align-items: center;
+}
 .searchIcon{
     /* 因為他原先是material icon有內建css 必須用important來覆蓋其stlye屬性 */
     font-size:25px !important; 
     margin-left: 20px;
 }
 .searchInput{    
+    /* 去除掉邊界 */
+    border:none;
+    width:100%;
+}
+.searchInputMobile{    
     /* 去除掉邊界 */
     border:none;
     width:100%;
@@ -140,6 +155,15 @@
     .topbarLeft{
         align-items: center;
         display: flex;
+        flex:2;
     }
-
+    .searchbarMobile{
+        display: none;
+    }
+    .topbarRightMobile{
+        display: none;
+    }
+    .topbarIconItem{
+        margin-left:2px;
+    }
 }

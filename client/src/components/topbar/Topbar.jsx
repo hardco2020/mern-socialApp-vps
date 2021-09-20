@@ -1,6 +1,6 @@
 import "./topbar.css"
 import Notice  from '../notice/Notice'
-import { Search,Person,Chat,Notifications,ExitToApp, Menu, ArrowBack} from "@material-ui/icons"
+import { Search,Notifications,ExitToApp, Menu, ArrowBack, Cancel, ImportContacts} from "@material-ui/icons"
 import { MenuItem,CircularProgress} from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom"
 import { useState } from "react";
@@ -25,6 +25,7 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
         query: '(max-width: 850px)'
       })
     // const [mobileMenu,setMobileMenu] = useState(false);
+    const [searchbar,setSearchbar] = useState(false);
     //導入notification
     useEffect(()=>{
        const getNotification = async()=>{
@@ -97,15 +98,19 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                 </Link>
             </div>
             <div className="topbarCenter" ref={wrapperRef}>
-                <div className="searchbar">
+                <div className={searchbar ? "searchbarMobile": "searchbar"}>
 
-                    <Search className="searchIcon" />
+                    <Search className="searchIcon"/>
                     <input
                         placeholder="尋找朋友、貼文或影片"
                         className="searchInput"
                         onChange={(e)=>setSearch(e.target.value)}
                         onClick ={()=>setDisplay(!display)}
                     />
+                    {isMobile===true ? <Cancel onClick={()=>setSearchbar(true) }/> : null}
+                </div>
+                <div style={isMobile ? searchbar ? {display:"flex"} : {display:"none"} : {display:"none"}}>
+                    <Search className="searchIcon"  onClick={()=>setSearchbar(!searchbar)}/>
                 </div>
                 {display &&(
                     <div className="autoContainer">
@@ -126,7 +131,7 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                  )}  
                 
             </div>
-            <div className="topbarRight">
+            <div className="topbarRight"  style={searchbar ? {display:"flex"} : {display:"none"}}>
                 {/* <div className="topbarLinks">
                 </div> */}
                 <div className="topbarIcons">
@@ -143,12 +148,13 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                     {noticePopup &&(
                         <Notice notices = {notices} />
                  )}  
-                    {isMobile && <ArrowBack onClick={()=>setMobileRightbar(!mobileRightbar)}/>}
+                    
                     
                 </div>
                 <div onClick={() => history.push({pathname:"/profile",state:{username: user.username}})}>
                 <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"} alt="" className="topbarImg" />
                 </div>
+                <div style={{display:"flex"}}>
                 <div className="topbarIconItem" onClick={()=>setNoticePopup(!noticePopup)}>
                         <Notifications/>
 
@@ -160,10 +166,15 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                             </span>
                             
                         }              
+                        
+                </div>
+                <div className="topbarIconItem">
+                    {isMobile && <ImportContacts onClick={()=>setMobileRightbar(!mobileRightbar)}/>}
                 </div>
                 <div className="topbarIconItem">
                         <ExitToApp/>
                         <span onClick={signout}>{isMobile ? "": "登出"}</span>
+                </div>
                 </div>
             </div>
         </div>
