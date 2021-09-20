@@ -58,8 +58,8 @@ export default function Register() {
                     </span>
                 </div>
                 <div className="loginRight">
-                    <div className="loginBox">
-                        <form className="loginBox" onSubmit={(e)=>handleClick(e)}>
+                    <div className="registerBox">
+                        <form className="registerBoxForm" onSubmit={(e)=>handleClick(e)}>
                             <input placeholder="用戶名稱" 
                                 ref={username}
                                 className="loginInput"

@@ -135,3 +135,11 @@
     align-items: center;
 }
 
+
+@media(max-width: 850px){
+    .topbarLeft{
+        align-items: center;
+        display: flex;
+    }
+
+}

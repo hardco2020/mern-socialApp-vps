@@ -1,3 +1,5 @@
+
+
 .login{
     width: 100vw;
     height: 100vh;
@@ -5,6 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .loginWrapper{
@@ -29,6 +32,16 @@
     font-size: 24px;
 }
 .loginBox{
+    height: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0px 0px 15px -8px black;
+}
+.loginBoxForm{
     height: 50%;
     padding: 20px;
     background-color: white;
@@ -83,4 +96,31 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+}
+
+@media(max-width: 850px){
+    .loginWrapper{
+        flex-direction: column !important;
+    }
+    .loginLogo{
+        font-size: 40px !important;
+
+    }
+    .loginDesc{
+        font-size: 20px !important;
+    }
+    .loginLeft{
+        margin-bottom:10px !important;
+        flex:2 !important;
+    }
+    .loginRight{
+        flex:8 !important;
+        justify-content: flex-start !important;
+    }
+    .loginButton{
+        background-color: red;
+    }
+    .loginRegisterButton{
+        width: 200px !important;
+    }
 }

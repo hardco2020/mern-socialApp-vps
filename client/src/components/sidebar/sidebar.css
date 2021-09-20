@@ -5,8 +5,17 @@
     overflow-y: scroll;
     position: sticky;
     top: 50px;
-
 }
+.sidebarMobile{
+    flex:3;   
+    margin-right:15px;
+    height: calc(100vh - 50px); 
+    overflow-y: scroll;
+    position: sticky;
+    top: 50px;
+}
+
+
 /*這邊是用來處理scrollbar的樣式 track是固定的條  thumb是滑動條 */ 
 ::-webkit-scrollbar {
     width:5px;
@@ -53,4 +62,25 @@
     margin: 0;
     list-style:none;
 
+}
+
+
+@media(max-width: 850px){
+    .sidebar{
+        z-index: 3;
+        position: absolute;
+        background-color: white;
+        transition: all 1s ease !important;
+        left:-300px;
+    }
+    .sidebarMobile{
+        z-index: 3;
+        position: absolute;
+        background-color: white;
+        left:0px;
+        transition: all 1s ease !important;
+    }   
+    .sidebarWrapper{
+        width: 200px;
+    }
 }

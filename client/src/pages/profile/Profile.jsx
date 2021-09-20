@@ -128,11 +128,12 @@ export default function Profile() {
         }
         setChat()
     }
+    const [mobileMenu,setMobileMenu] = useState(false);
     return (
         <>
-        <Topbar/>
+        <Topbar mobileMenu ={mobileMenu} setMobileMenu = {setMobileMenu}/>
         <div className="profile">
-            <Sidebar/>
+            <Sidebar mobileMenu ={mobileMenu} />
             <div className="profileRight">
                 <div className="profileRightTop">
                     <div className="profileCover">

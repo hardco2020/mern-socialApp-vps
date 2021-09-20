@@ -5,6 +5,13 @@
     height: calc(100vh - 50px); 
     top: 50px;
 }
+.rightbarMobile{
+    flex:4;
+    margin-left:20px;
+    position: sticky;
+    height: calc(100vh - 50px); 
+    top: 50px;
+}
 
 .rightbarWrapper{
     padding:20px 20px 0 0;
@@ -128,4 +135,23 @@
 }
 .rightbarFollowButton:focus{
     outline:none
+}
+
+@media(max-width: 850px){
+    .rightbar{
+        position: absolute;
+        /* height: calc(100vh - 50px);  */
+        top: 50px;
+        left:600px;
+        transition: all 1s ease !important;
+        background-color: white;
+    }
+    .rightbarMobile{
+        position: absolute;
+        /* height: calc(100vh - 50px);  */
+        top: 50px;
+        left: 0px;
+        transition: all 1s ease !important;
+        background-color: white;
+    }
 }

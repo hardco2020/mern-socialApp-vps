@@ -32,7 +32,7 @@ export default function Login() {
                 </div>
                 <div className="loginRight">
                     <div className="loginBox">
-                    <form className="loginBox" onSubmit={handleClick}>
+                    <form className="loginBoxForm" onSubmit={handleClick}>
                         <input 
                             placeholder="電子郵件" 
                              className="loginInput"

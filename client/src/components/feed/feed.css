@@ -1,5 +1,6 @@
 .feed{
     flex:5;
+    
 }
 .onLoading{
     display: flex;
@@ -12,4 +13,11 @@
 }
 .feddScrollbar::-webkit-scrollbar{
     display: none;
+}
+
+@media(max-width: 850px){
+    .feed{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
 }

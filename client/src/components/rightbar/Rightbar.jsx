@@ -8,7 +8,7 @@ import { PersonAdd,PersonAddDisabled,RecordVoiceOver} from '@material-ui/icons'
 import { useRef } from 'react'
 import {io} from 'socket.io-client'
 import { Link, useHistory } from "react-router-dom";
-export default function Rightbar({user}) {
+export default function Rightbar({user,mobileRightbar}) {
     
     let history = useHistory()
     const [friends,setFriends] = useState([])
@@ -195,7 +195,7 @@ export default function Rightbar({user}) {
         )
     }
     return (
-        <div className="rightbar">
+        <div className={mobileRightbar ? "rightbarMobile" :"rightbar"}>
             <div className="rightbarWrapper">
                 {user ? <ProfileRightbar/> : <HomeRightbar/> }  
             </div>

@@ -1,13 +1,14 @@
 import "./topbar.css"
 import Notice  from '../notice/Notice'
-import { Search,Person,Chat,Notifications,ExitToApp} from "@material-ui/icons"
+import { Search,Person,Chat,Notifications,ExitToApp, Menu, ArrowBack} from "@material-ui/icons"
 import { MenuItem,CircularProgress} from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom"
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useRef } from "react";
-export default function Topbar(){
+import { useMediaQuery } from 'react-responsive'
+export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobileRightbar}){
     let history = useHistory();
     //const [member,setMember] = useState({});
     const [search, setSearch] = useState("");
@@ -19,6 +20,11 @@ export default function Topbar(){
     const [newNotice,setNewNotice] = useState(null)
     const user = JSON.parse(localStorage.getItem("user"))
     const wrapperRef = useRef(null) //利用此點判斷滑鼠的落點區域
+
+    const isMobile = useMediaQuery({
+        query: '(max-width: 850px)'
+      })
+    // const [mobileMenu,setMobileMenu] = useState(false);
     //導入notification
     useEffect(()=>{
        const getNotification = async()=>{
@@ -85,8 +91,9 @@ export default function Topbar(){
     return(
         <div className="topbarContainer">
             <div className="topbarLeft">
+                {isMobile && <Menu onClick={()=>setMobileMenu(!mobileMenu)}/>}
                 <Link to="/" style={{textDecoration:"none"}}>
-                <span className="logo">HardCo.Social</span>
+                <span className="logo">{isMobile ? "HardCo." :"HardCo.Social"}</span>
                 </Link>
             </div>
             <div className="topbarCenter" ref={wrapperRef}>
@@ -136,6 +143,8 @@ export default function Topbar(){
                     {noticePopup &&(
                         <Notice notices = {notices} />
                  )}  
+                    {isMobile && <ArrowBack onClick={()=>setMobileRightbar(!mobileRightbar)}/>}
+                    
                 </div>
                 <div onClick={() => history.push({pathname:"/profile",state:{username: user.username}})}>
                 <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"} alt="" className="topbarImg" />
@@ -154,7 +163,7 @@ export default function Topbar(){
                 </div>
                 <div className="topbarIconItem">
                         <ExitToApp/>
-                        <span onClick={signout}>登出</span>
+                        <span onClick={signout}>{isMobile ? "": "登出"}</span>
                 </div>
             </div>
         </div>

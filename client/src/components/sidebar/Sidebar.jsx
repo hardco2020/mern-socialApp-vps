@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-export default function Sidebar(){
+export default function Sidebar({mobileMenu}){
     const [user,setUser] = useState([])
     useEffect(()=>{
         const fetchUser = async ()=>{
@@ -18,7 +18,7 @@ export default function Sidebar(){
         fetchUser()      
     },[])
     return(
-        <div className="sidebar">
+        <div className={mobileMenu ? "sidebarMobile" : "sidebar"}>
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
                     <li className="sidebarListItem">
