@@ -156,3 +156,7 @@
     /* 去除掉點擊時的邊界 */
     outline:none
 }
+
+.postSendComment{
+    cursor: pointer;
+}

@@ -1,9 +1,10 @@
 import "./post.css"
 import { MoreVert,ThumbUpOutlined,ChatBubbleOutline,Share} from "@material-ui/icons"
-import { useState,useEffect} from "react"
+import { useState,useEffect, useRef} from "react"
 import axios from "axios"
 import {format} from 'timeago.js'
 import { Link } from "react-router-dom"
+import { Button } from "@material-ui/core"
 //export default function Post({post}) {
 const Post = (({post})=> {
     const [user,setUser] = useState({});
@@ -69,6 +70,36 @@ const Post = (({post})=> {
             }
         }
     }
+    const ClickComment = async()=>{
+        //執行API送出
+        const datenow = new Date()
+        const commentData = {
+            userName : currentUser.username,
+            userPic : currentUser.profilePicture,
+            comment : commentRef.current.value,
+            date: datenow            
+        }
+        const sendComment = await axios.post('api/posts/comment/'+post._id,commentData)
+        setCurrentComment(sendComment.data.data.comment)       
+        post.comment = currentComment
+        commentRef.current.value = ""
+        setHideComment('')
+        //如果是自己留言不能發通知
+        if(currentUser._id !== post.userId){
+            const  sendNotice = async ()=>{
+                const notice = {
+                    senderId : currentUser._id,
+                    object : "comment",
+                    senderPic : currentUser.profilePicture,
+                    senderUsername : currentUser.username,
+                    receiverId: post.userId,
+                    postId: post._id
+                }
+                await axios.post('/api/notice/post',notice)
+            }
+            sendNotice()
+        }
+    }
     const likeHandler= ()=>{
         try{
             const likePost = async ()=>{
@@ -106,6 +137,7 @@ const Post = (({post})=> {
             setHideComment('')
         }
     }
+    const commentRef = useRef();
     return (
         <div className="post">
              <div className="postWrapper">
@@ -218,10 +250,12 @@ const Post = (({post})=> {
                         />
                         <div className="commentSendArea">
                             <input
+                            ref={commentRef}
                             placeholder="留言......"
                             className="postSendInput"
                             onKeyPress={sendComment}
                             />
+                            <Button onClick={ClickComment} className="postSendButton">送出</Button>
                         </div>
                  </div>
              </div>
