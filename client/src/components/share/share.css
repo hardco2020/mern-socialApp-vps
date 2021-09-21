@@ -83,3 +83,12 @@
     cursor: pointer;
     opacity: 0.7;
 }
+
+@media(max-width: 850px){
+    .share{
+        /* width: 100%; */
+    }
+    .shareOptionText{
+        display: none;
+    }
+}

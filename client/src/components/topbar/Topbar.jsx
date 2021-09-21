@@ -1,6 +1,6 @@
 import "./topbar.css"
 import Notice  from '../notice/Notice'
-import { Search,Notifications,ExitToApp, Menu, ArrowBack, Cancel, ImportContacts} from "@material-ui/icons"
+import { Search,Notifications,ExitToApp, Menu, ArrowBack, Cancel, ImportContacts, InsertComment, SupervisedUserCircle} from "@material-ui/icons"
 import { MenuItem,CircularProgress} from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom"
 import { useState } from "react";
@@ -8,7 +8,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useMediaQuery } from 'react-responsive'
-export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobileRightbar}){
+export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobileRightbar,mobileMessenger,setMobileMessenger,mobileFriend,setMobileFriend}){
     let history = useHistory();
     //const [member,setMember] = useState({});
     const [search, setSearch] = useState("");
@@ -25,7 +25,7 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
         query: '(max-width: 850px)'
       })
     // const [mobileMenu,setMobileMenu] = useState(false);
-    const [searchbar,setSearchbar] = useState(false);
+    const [searchbar,setSearchbar] = useState(true);
     //導入notification
     useEffect(()=>{
        const getNotification = async()=>{
@@ -89,10 +89,12 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
         }
     },[search])
     //此處做切版
+    const [noticePopupAnimation ,setNoticePopupAnimation] = useState(false)
     return(
         <div className="topbarContainer">
             <div className="topbarLeft">
-                {isMobile && <Menu onClick={()=>setMobileMenu(!mobileMenu)}/>}
+                {isMobile && mobileMenu!==undefined && <Menu onClick={()=>setMobileMenu(!mobileMenu)} className="menuMobile"/>}
+                {isMobile && mobileMessenger!==undefined && <InsertComment onClick={()=>setMobileMessenger(!mobileMessenger)} className="menuMobile"/>}
                 <Link to="/" style={{textDecoration:"none"}}>
                 <span className="logo">{isMobile ? "HardCo." :"HardCo.Social"}</span>
                 </Link>
@@ -110,7 +112,7 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                     {isMobile===true ? <Cancel onClick={()=>setSearchbar(true) }/> : null}
                 </div>
                 <div style={isMobile ? searchbar ? {display:"flex"} : {display:"none"} : {display:"none"}}>
-                    <Search className="searchIcon"  onClick={()=>setSearchbar(!searchbar)}/>
+                    <Search className="searchIconMobile"  onClick={()=>setSearchbar(!searchbar)}/>
                 </div>
                 {display &&(
                     <div className="autoContainer">
@@ -145,9 +147,7 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                     </div>
                     </Link> */}
                     
-                    {noticePopup &&(
-                        <Notice notices = {notices} />
-                 )}  
+                        {notices &&  <Notice notices = {notices}  noticePopup={noticePopupAnimation}/> }
                     
                     
                 </div>
@@ -155,7 +155,8 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                 <img src={user.profilePicture ? user.profilePicture : "https://i.imgur.com/HeIi0wU.png"} alt="" className="topbarImg" />
                 </div>
                 <div style={{display:"flex"}}>
-                <div className="topbarIconItem" onClick={()=>setNoticePopup(!noticePopup)}>
+                {/* <div className="topbarIconItem" onClick={()=>setNoticePopup(!noticePopup)}> */}
+                <div className="topbarIconItem" onClick={()=>setNoticePopupAnimation(!noticePopupAnimation)}>
                         <Notifications/>
 
                         {
@@ -169,11 +170,12 @@ export default function Topbar({mobileMenu,setMobileMenu,mobileRightbar,setMobil
                         
                 </div>
                 <div className="topbarIconItem">
-                    {isMobile && <ImportContacts onClick={()=>setMobileRightbar(!mobileRightbar)}/>}
+                    {isMobile && mobileMenu!==undefined  && mobileRightbar!==undefined && <ImportContacts onClick={()=>setMobileRightbar(!mobileRightbar)}/>}
+                    {isMobile && mobileFriend!==undefined && <SupervisedUserCircle onClick={()=>setMobileFriend(!mobileFriend)}/>}
                 </div>
-                <div className="topbarIconItem">
+                <div className="topbarIconItem" onClick={signout}>
                         <ExitToApp/>
-                        <span onClick={signout}>{isMobile ? "": "登出"}</span>
+                        <span>{isMobile ? "": "登出"}</span>
                 </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
+import Sidebar from '../../components/sidebar/Sidebar';
 export default function SinglePost() {
     //抓取postid來找使用者貼文
     let location = useLocation();
@@ -24,10 +25,14 @@ export default function SinglePost() {
        }
        getPost()
     }, [location.state.postId])
+
+    const [mobileMenu,setMobileMenu] = useState(false);
+
     return (
         <>
-        <Topbar/>
+        <Topbar mobileMenu ={mobileMenu} setMobileMenu = {setMobileMenu}/>
         <div className = "singlePost">
+        <Sidebar mobileMenu ={mobileMenu} />
             <div className="singlePostLeft"> 
             </div>
             <div className="singlePostCenter">

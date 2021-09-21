@@ -157,13 +157,28 @@
         display: flex;
         flex:2;
     }
+    .searchbar{
+        width:90%;
+        margin-left:10px;
+    }
+    .searchIcon{
+        margin-left:5px;
+    }
     .searchbarMobile{
         display: none;
+    }
+    .searchIconMobile{
+        color: white;
+        cursor: pointer;
     }
     .topbarRightMobile{
         display: none;
     }
     .topbarIconItem{
         margin-left:2px;
+    }
+    .menuMobile{
+        margin-left:5px;
+        color: white;
     }
 }

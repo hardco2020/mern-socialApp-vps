@@ -149,3 +149,25 @@
     justify-content: center;
     align-items: center;
 }
+
+@media(max-width: 850px){
+    .editProfile{
+        top:6%;
+        width:80%;
+        left:6%;
+    }
+    .editCoverImgDisplay{
+        width:300px;
+    }
+    .editInfoArea{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .editInfoSingleArea{
+        margin-bottom: 10px;
+    }
+    .addCoverPic{
+        left:50%;
+        top:99%;
+    }
+}

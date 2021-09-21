@@ -14,3 +14,15 @@
 .singlePostRight{
     flex:3.5
 }
+
+@media(max-width: 850px){
+    .singlePostLeft{
+        flex:1;
+    }
+    .singlePostCenter{
+        flex:10;
+    }
+    .singlePostRight{
+        flex:1;
+    }
+}

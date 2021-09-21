@@ -68,14 +68,14 @@
 @media(max-width: 850px){
     .sidebar{
         z-index: 3;
-        position: absolute;
+        position: fixed;
         background-color: white;
         transition: all 1s ease !important;
         left:-300px;
     }
     .sidebarMobile{
         z-index: 3;
-        position: absolute;
+        position: fixed;
         background-color: white;
         left:0px;
         transition: all 1s ease !important;

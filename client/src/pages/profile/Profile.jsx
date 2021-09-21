@@ -129,9 +129,10 @@ export default function Profile() {
         setChat()
     }
     const [mobileMenu,setMobileMenu] = useState(false);
+    const [mobileRightbar,setMobileRightbar] = useState(false);
     return (
         <>
-        <Topbar mobileMenu ={mobileMenu} setMobileMenu = {setMobileMenu}/>
+        <Topbar mobileMenu ={mobileMenu} setMobileMenu = {setMobileMenu} mobileRightbar={mobileRightbar} setMobileRightbar={setMobileRightbar}/>
         <div className="profile">
             <Sidebar mobileMenu ={mobileMenu} />
             <div className="profileRight">
@@ -215,6 +216,7 @@ export default function Profile() {
                                     <div className="editInfo">
                                         <h2 className ="editItemTitle">用戶資訊</h2>
                                         <div className="editInfoArea">
+                                            <div style={{display:"flex"}} className="editInfoSingleArea">
                                             <LocationCity/>
                                             <span className="editInfoTitle">城市:</span>
                                                 <select className="editInfoOption" ref={city} defaultValue={user.city}>
@@ -225,6 +227,8 @@ export default function Profile() {
                                                         )
                                                     })}
                                                 </select>
+                                            </div>
+                                            <div style={{display:"flex"}} className="editInfoSingleArea">
                                             <Language/>
                                             <span className="editInfoTitle">國家:</span>
                                                 <select className="editInfoOption" ref={country}  defaultValue={user.from}>
@@ -234,12 +238,16 @@ export default function Profile() {
                                                                 )
                                                     })}
                                                 </select>
+                                            </div>
+
+                                            <div style={{display:"flex"}} className="editInfoSingleArea">
                                             <FavoriteBorder/>
                                             <span className="editInfoTitle">感情狀態:</span>
                                                 <select className="editInfoOption" ref={relationship} defaultValue={2}>
                                                     <option value={2} >甜蜜交往中</option>
                                                     <option value={1} >單身</option>
                                                 </select>
+                                            </div>
                                         </div>
                                         <div className="editSend">
                                             <Button disabled={isLoading} 
@@ -259,7 +267,7 @@ export default function Profile() {
                 </div>
                 <div className="profileRightBottom">
                     <Feed username={location.state.username}/>
-                    <Rightbar user={user}/> 
+                    <Rightbar user={user} mobileRightbar = {mobileRightbar}/> 
                 </div>
             </div>     
         </div>

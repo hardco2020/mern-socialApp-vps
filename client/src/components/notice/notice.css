@@ -1,6 +1,21 @@
 .notice{
     position: absolute;
     width:300px;
+    top:-600px;
+    left:75%;
+    background-color: white;
+    padding:10px 5px;
+    color:black;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0,0,0,0.68); 
+    box-shadow: 0px 12px 28px 0px rgba(0,0,0,0.68);
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 70vh;
+    transition: all 1s ease;
+}
+.noticeMobile{
+    position: absolute;
+    width:300px;
     top:50px;
     left:75%;
     background-color: white;
@@ -11,6 +26,7 @@
     border-radius: 10px;
     overflow-y: auto;
     max-height: 70vh;
+    transition: all 1s ease;
 }
 
 .noticeTop{
@@ -111,4 +127,17 @@
 
 .feedScrollbar::-webkit-scrollbar{
     display: none;
+}
+
+
+@media(max-width: 850px){
+    .notice{
+        top:-600px;
+        left:15%;
+    }
+    .noticeMobile{
+        top:50px;
+        left:15%;
+    }   
+
 }

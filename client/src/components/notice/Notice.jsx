@@ -7,7 +7,7 @@ import { useHistory,useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect } from 'react';
-export default function Notice({notices}) {
+export default function Notice({notices,noticePopup}) {
     let location = useLocation();
     const [allNotices,setAllNotices] = useState(notices)
     const user = JSON.parse(localStorage.getItem("user"))
@@ -129,7 +129,7 @@ export default function Notice({notices}) {
         getNotification()
     }
     return (
-        <div className="notice" id="scrollableDiv">
+        <div className={noticePopup ? "noticeMobile" :"notice"}  id="scrollableDiv">
             <div className="noticeWrapper">
                 <div className="noticeTop">
                     <h1>通知</h1>

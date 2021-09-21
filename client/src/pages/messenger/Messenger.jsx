@@ -187,11 +187,13 @@ export default function Messenger() {
         } 
         getMessages()
     }
+    const [mobileMessenger,setMobileMessenger] = useState(false);
+    const [mobileFriend,setMobileFriend] = useState(false);
     return (
         <>
-        <Topbar/>
+        <Topbar mobileMessenger={mobileMessenger} setMobileMessenger={setMobileMessenger} mobileFriend={mobileFriend} setMobileFriend={setMobileFriend}/>
         <div className="messenger">
-            <div className="chatMenu">
+            <div className={mobileMessenger ? "chatMenuMobile" :"chatMenu"}>
                 <div className="chatMenuWrapper">
                     {/* <input placeholder="尋找朋友" className="chatMenuInput" type="text" /> */}
                     <h4 className="chatSidebarTitle">正在聊天的視窗</h4>
@@ -251,7 +253,7 @@ export default function Messenger() {
                     )}
                 </div> 
             </div>
-            <div className="chatOnline">
+            <div className={mobileFriend ? "chatOnlineMobile" : "chatOnline"}>
                 <div className="chatOnlineWrapper">
                 <h4 className="chatSidebarTitle">正在線上的好友</h4>
                 <hr/>
