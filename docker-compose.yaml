@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: hardco-social-api
+    restart: unless-stopped
+    image: hardco-social-api:1.0.0
+    build:
+      context: api
+      target: production
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+
+  client:
+    container_name: hardco-social-client
+    restart: unless-stopped
+    image: hardco-social-client:1.0.0
+    build:
+      context: client
+      target: production
+      dockerfile: dockerfile
+    ports:
+      - 3000:3000
